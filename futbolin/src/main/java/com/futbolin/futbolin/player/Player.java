@@ -2,6 +2,7 @@ package com.futbolin.futbolin.player;
 
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -13,19 +14,19 @@ public class Player
 {
 
     @Id
+    @Column(name="PlayerId", nullable=false)
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
     private String name;
-    private Date date;
-    private boolean finished;
+    private String surname;
 
     public Player() {}
 
-    public Player(final String name, final Date date)
+    public Player(final String name, final String surname)
     {
         this.name = name;
-        this.date = date;
+        this.surname = surname;
     }
 
     public long getId()
@@ -43,23 +44,13 @@ public class Player
         this.name = name;
     }
 
-    public Date getDate()
+    public String getSurname()
     {
-        return date;
+        return surname;
     }
 
-    public void setDate(final Date date)
+    public void setSurname(final String surname)
     {
-        this.date = date;
-    }
-
-    public boolean isFinished()
-    {
-        return finished;
-    }
-
-    public void setFinished(final boolean finished)
-    {
-        this.finished = finished;
+        this.surname = surname;
     }
 }

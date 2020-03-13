@@ -6,10 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
 
-@RepositoryRestResource(collectionResourceRel = "tournaments", path = "tournaments")
+@RepositoryRestResource(collectionResourceRel = "players", path = "players")
 public interface PlayersRepository extends JpaRepository<Player, Long>
 {
-
-    List<Player> findAll();
-
 }

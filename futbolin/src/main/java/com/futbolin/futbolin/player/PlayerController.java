@@ -24,32 +24,32 @@ public class PlayerController
 
     // Aggregate root
 
-    @GetMapping("/tournaments")
+    @GetMapping("/players")
     List<Player> all() {
         return repository.findAll();
     }
 
-    @PostMapping("/tournaments")
-    Player newTournament(@RequestBody Player newTournaments) {
-        return repository.save(newTournaments);
+    @PostMapping("/players")
+    Player newPlayer(@RequestBody Player newPlayers) {
+        return repository.save(newPlayers);
     }
 
     // Single item
 
-    @GetMapping("/tournaments/{id}")
+    @GetMapping("/players/{id}")
     Player one(@PathVariable Long id) {
 
         return repository.findById(id)
             .orElseThrow(() -> new RuntimeException("Not found"));
     }
 
-    @PutMapping("/tournaments/{id}")
-    Player replaceTournament(@RequestBody Player newPlayer, @PathVariable Long id) {
+    @PutMapping("/players/{id}")
+    Player replacePlayer(@RequestBody Player newPlayer, @PathVariable Long id) {
 
         return repository.findById(id)
             .map(player -> {
                 player.setName(newPlayer.getName());
-                player.setDate(newPlayer.getDate());
+                player.setSurname(newPlayer.getSurname());
                 return repository.save(player);
             })
             .orElseGet(() -> {
@@ -57,8 +57,8 @@ public class PlayerController
             });
     }
 
-    @DeleteMapping("/tournaments/{id}")
-    void deleteTournament(@PathVariable Long id) {
+    @DeleteMapping("/players/{id}")
+    void deletePlayer(@PathVariable Long id) {
         repository.deleteById(id);
     }
 }
