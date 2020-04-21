@@ -16,7 +16,7 @@ public class Tournament {
 
     private String name;
     private Date date;
-    private boolean finished;
+    private String status;
 
     public Tournament() {}
 
@@ -51,13 +51,13 @@ public class Tournament {
         this.date = date;
     }
 
-    public boolean isFinished()
+    public String getStatus()
     {
-        return finished;
+        return status;
     }
 
-    public void setFinished(final boolean finished)
+    public void setStatus(final String status)
     {
-        this.finished = finished;
+        this.status = status;
     }
 }

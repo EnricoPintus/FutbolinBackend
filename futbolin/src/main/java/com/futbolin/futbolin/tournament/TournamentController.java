@@ -1,8 +1,12 @@
 package com.futbolin.futbolin.tournament;
 
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.EntityModel;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,9 +19,9 @@ import org.springframework.web.bind.annotation.RestController;
 public class TournamentController
 {
     @Autowired
-    private final TournamentRepository repository;
+    private final TournamentRepositoryInterface repository;
 
-    TournamentController(TournamentRepository repository) {
+    TournamentController(TournamentRepositoryInterface repository) {
         this.repository = repository;
     }
 
@@ -36,10 +40,12 @@ public class TournamentController
     // Single item
 
     @GetMapping("/tournaments/{id}")
-    Tournament one(@PathVariable Long id) {
-
-        return repository.findById(id)
+    EntityModel<Tournament> one(@PathVariable Long id) {
+        Tournament tournament = repository.findById(id)
             .orElseThrow(() -> new RuntimeException("Not found"));
+
+        return new EntityModel<>(tournament,
+            linkTo(methodOn(TournamentController.class).one(id)).withSelfRel());
     }
 
     @PutMapping("/tournaments/{id}")
@@ -60,5 +66,14 @@ public class TournamentController
     void deleteTournament(@PathVariable Long id) {
         repository.deleteById(id);
     }
+
+    @PutMapping("/tournaments/{id}/generateTeams")
+    void generateTeams(@RequestBody GenerateTeamsParameterRest teamsParameterRest,
+                       @PathVariable Long id)
+    {
+        int a = 1;
+    }
+    @GetMapping("/tournaments/{id}/teams")
+    void getTeams(@PathVariable Long id) {};
 }
 
